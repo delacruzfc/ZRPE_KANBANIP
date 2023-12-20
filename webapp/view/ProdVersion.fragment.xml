@@ -1,0 +1,25 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<TableSelectDialog
+		noDataText="No Production Version Found"
+		title="Select Production Version"
+		search="handleProVerSearch" 
+		confirm="handleProVerconfirm"
+		cancel="onNavBack" 
+		items="{oProdVerModel>/results}"
+		contentHeight="15%"
+		contentWidth="35%">
+		<ColumnListItem>
+			<cells>
+				<Text text="{oProdVerModel>ProdVersion}" />
+			</cells>
+		</ColumnListItem>
+		<columns>
+			<Column>
+				<header>
+					<Text text="ProductionVersion" />
+				</header>
+			</Column>
+		</columns>
+	</TableSelectDialog>
+</core:FragmentDefinition>

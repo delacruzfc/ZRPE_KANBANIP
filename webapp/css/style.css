@@ -1,0 +1,112 @@
+.baseMessageStrip,
+.lockMessageStrip {
+    box-sizing: border-box;
+    font-size: .875rem;
+    font-weight: 400;
+    position: relative;
+    margin-right: 5px
+}
+
+.baseMessageStrip {
+    border: 1px solid;
+    border-radius: .1875rem;
+    padding: .4375rem 1rem
+}
+
+.waitMessageStrip {
+    background-color: #f7f;
+    color: #333
+}
+
+.emptyMessageStrip {
+    background-color: red;
+    color: #333
+}
+
+.missingMessageStrip {
+    background-color: #ffff93;
+    color: #333
+}
+
+.processMessageStrip {
+    background-color: #ff0;
+    color: #333
+}
+
+.fullMessageStrip {
+    background-color: #0f0;
+    color: #333
+}
+
+.inuseMessageStrip {
+    background-color: #0ff;
+    color: #333
+}
+
+.lockMessageStrip {
+    border: 3px solid red;
+    border-radius: .1875rem;
+    padding: .2255rem 1rem;
+    background-color: #0f0
+}
+
+.headerTitle {
+    font-size: 1.5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem
+}
+
+.segmentBtnGap {
+    margin-right: 4%;
+}
+
+.sapMSegB .segmentBtnGap.sapMSegBBtn .sapMSegBBtnInner {
+    border-right: 1px solid #bfbfbf;
+}
+
+.btnScaPadding {
+    padding-left: 6%
+}
+
+.sliderBackground {
+    background-image: url(images/slider.png);
+    background-repeat: no-repeat;
+    background-size: 100% 40%;
+    background-position: left;
+    padding: 1.406rem 0;
+    margin-left: 1rem
+}
+
+.materialDescPadding {
+    padding-left: .5rem
+}
+
+
+.rate-experience-wrap {
+    margin: 0 auto 10px auto;
+    text-align: center;
+}
+
+.rate-experience-wrap .rate-experience {
+    text-decoration: none !important;
+    color: #003daf !important;
+    text-align: center;
+    display: inline-block;
+    margin: 0 auto;
+}
+
+.rate-experience img {
+    display: block;
+    margin: 0 auto 5px auto;
+    width: 75px;
+    height: 28px;
+}
+
+.rate-experience span {
+    display: block;
+    margin: 0 !important;
+}
+
+.rate-experience:hover span {
+    text-decoration: underline;
+}

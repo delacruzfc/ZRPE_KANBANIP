@@ -1,0 +1,168 @@
+<mvc:View xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:uxap="sap.uxap" xmlns:mvc="sap.ui.core.mvc" xmlns:f="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout" xmlns:semantic="sap.m.semantic" xmlns:footerbar="sap.ushell.ui.footerbar" xmlns:block="pg.kanban.block"
+	xmlns:smartTable="sap.ui.comp.smarttable" xmlns:ndc="sap.ndc" xmlns:utility="pg.kanban.utility" controllerName="pg.kanban.controller.Object"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page id="page" busy="{objectView>/busy}" busyIndicatorDelay="{objectView>/delay}" class="pgIPObjectview sapUiSizeCompact">
+		<customHeader>
+			<Bar>
+				<contentLeft>
+					<Button type="Back" press="onNavBack" width="5rem"/>
+					<Label text="{i18n>User}"/>
+					<Text id="userText"/>
+				</contentLeft>
+				<contentMiddle>
+					<Text text="{i18n>appTitle}"/>
+				</contentMiddle>
+				<contentRight>
+					<Label text="{i18n>Plant}"/>
+					<Text id="plantText"/>
+					<Text id="ProdLineVerText"/>
+					<Text id="systemText"/>
+				</contentRight>
+			</Bar>
+		</customHeader>
+		<content class="pgIPContent">
+			<uxap:ObjectPageLayout id="ObjectPageLayout" enableLazyLoading="false" class="pgIPPageLayout">
+				<uxap:headerContent>
+					<!--<m:VBox>-->
+					<l:VerticalLayout>
+						<Title id="headerTitle" text="{parts:['SupplyArea','MaterialNo','MaterialDesc'], formatter:'.formatTitle'}" level="H1"/>
+					</l:VerticalLayout>
+					<!--<m:ObjectAttribute title="{i18n>LABEL_CONTROL_CYCLE_ID}" text="{ControlCycleID}"/>-->
+					<!--</m:VBox>-->
+				</uxap:headerContent>
+				<uxap:sections class="pgIPSection">
+					<uxap:ObjectPageSection title="{i18n>Details}">
+						<uxap:subSections>
+							<uxap:ObjectPageSubSection id="idDetails" title="" class="pgIPSection">
+								<uxap:actions class="pgIPSectionActions">
+									<!-- <Input id="prodLineVer" type="Text" placeholder="Production Line/Ver" showValueHelp="true" valueHelpOnly="true"
+							   valueHelpRequest="handleProdLineValueHelp" width="20rem" class="sectionActionInput" /> -->
+									<Button text="{i18n>CreatePro}" press="onProCreateDialog" width="10rem" visible="{= ${StatusSequence} === 'ZM04'? true: false}"></Button>
+									<Button text="{i18n>FinishPro}" press="onProDeCoupleDialog" width="10rem" visible="{= ${StatusSequence} === 'ZM04'? true: false}"></Button>
+									<Button text="{i18n>ConfirmPro}" press="onPressProConfirm" width="10rem" id="confirmButton"></Button>
+									<Button text="{i18n>Refresh}" icon="sap-icon://refresh" press="onObjRefresh" type="Emphasized"></Button>
+								</uxap:actions>
+								<uxap:blocks>
+										<smartTable:SmartTable id="orderSmartTable" beforeRebindTable="onBeforeRebindTable" entitySet="ProcessOrderSet"
+										tableBindingPath="CycleToOrder" tableType="Table" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="false"
+										header="{i18n>ProcessOrder}" showRowCount="true" initiallyVisibleFields="ControlCycleID,OrderNo,Material,Batch,PlannedKanban,ProducedKanban,CoupledKanbanID"
+										requestAtLeastFields="ControlCycleID,OrderNo,Material,Batch,PlannedKanban,ProducedKanban,CoupledKanbanID,TecoIdentifier" enableAutoBinding="false" demandPopin="true"
+										class="sapUiResponsiveContentPadding" initialise="onSmartTableInitialised" dataReceived="onTableDataReceived">
+										<Table id="orderTable" noDataText="{i18n>tableNoDataText}" busyIndicatorDelay="0" mode="SingleSelectLeft">
+											<columns>
+												<Column hAlign="Begin" width="20%">
+													<customData>
+														<core:CustomData key="p13nData" value="\{&quot;columnKey&quot;: &quot;ProcessOrderStatus&quot;, &quot;columnIndex&quot;:&quot;10&quot;}"/>
+													</customData>
+												</Column>
+												<Column>
+													<customData>
+														<core:CustomData key="p13nData" value="\{&quot;columnKey&quot;: &quot;OrderNoNZero&quot;, &quot;columnIndex&quot;:&quot;11&quot;}"/>
+													</customData>
+													<header>
+														<Label text="{i18n>OrderNo}"/>
+													</header>
+												</Column>
+											</columns>
+											<items>
+												<ColumnListItem vAlign="Middle" type="Active" press="onListItemPressed">
+													<cells>
+														<l:HorizontalLayout>
+															<l:content/>
+														</l:HorizontalLayout>
+														<Text/>
+													</cells>
+												</ColumnListItem>
+											</items>
+										</Table>
+									</smartTable:SmartTable>
+								</uxap:blocks>
+							</uxap:ObjectPageSubSection>
+						</uxap:subSections>
+					</uxap:ObjectPageSection>
+					<uxap:ObjectPageSection title="{i18n>Information}">
+						<uxap:subSections>
+							<uxap:ObjectPageSubSection id="idInformation" title="">
+								<uxap:blocks>
+									<f:SimpleForm id="kanbanForm" maxContainerCols="2" editable="true" layout="ResponsiveGridLayout" title="" labelSpanL="2" labelSpanM="2"
+										emptySpanL="2" emptySpanM="2" class="editableForm">
+										<f:content>
+											<Label text="{i18n>EnableCamera}"/>
+											<Switch id="enableCameraSwitch" state="true">
+												<layoutData>
+													<l:GridData span="L2 M2 S3"/>
+												</layoutData>
+											</Switch>
+											<Label/>
+											<SegmentedButton selectedKey="full" class="sapUiSmallMarginTopBottom" id="scanSegement" select="onSwitchSelect" width="100%">
+												<items>
+													<SegmentedButtonItem id="segFull" icon="sap-icon://add-product" text="{i18n>ScanFull}" key="full" width="23%"/>
+													<SegmentedButtonItem id="segReverse" icon="sap-icon://undo" text="{i18n>Reverse}" key="reverse" width="23%"/>
+													<SegmentedButtonItem id="segEmpty" icon="sap-icon://action" text="{i18n>ScanEmpty}" key="empty" width="23%"/>
+													<SegmentedButtonItem id="segLineReturn" icon="sap-icon://cause" text="{i18n>LineReturn}" key="line_return" width="27%"/>
+												</items>
+											</SegmentedButton>
+											<Label text="{i18n>KanbanID}"/>
+											<Input id="kanbanID" width="94%" enabled="false" value="{kanbanModel>KanbanID}">
+												<layoutData>
+													<l:GridData span="L4 M4 S5"/>
+												</layoutData>
+											</Input>
+											<Button id="btnScan" width="100%" class="btnScaPadding" press="onScanBtnPress" text="{i18n>BTN_SCAN}" icon="sap-icon://bar-code"/>
+											<!--sap standard-->
+											<!--<Button id="btnScan" class="btnScaPadding" press="onScanBtnPress" text="{i18n>BTN_SCAN}" icon="sap-icon://bar-code" visible="false"/>-->
+											<!--Quagga.js-->
+											<!--<Button icon="sap-icon://bar-code" text="{i18n>BTN_SCAN}" tooltip="Scan barcode" press="onScanForValue" class="btnScaPadding" visible="false"/>-->
+											<!--zxing.js-->
+											<!--<Button id="btnScanzxing" class="btnScaPadding" press="onZXingScanBtnPress" text="{i18n>BTN_SCAN}" icon="sap-icon://bar-code">-->
+											<!--	<layoutData>-->
+											<!--		<l:GridData span="L4 M4"/>-->
+											<!--	</layoutData>-->
+											<!--</Button>-->
+											<Label text="{i18n>Component}"/>
+											<Input id="Component" value="{kanbanModel>MaterialNo}" enabled="false" visible="false"/>
+											<Label text="{i18n>Batch}"/>
+											<Input id="Batch" value="{kanbanModel>Batch}" enabled="false"/>
+											<Label text="{i18n>Quantity}"/>
+											<Input id="quantity" enabled="{objectView>/quantityEnabled}" type="Number"
+												value="{path:'kanbanModel>ActualQuantity', formatter:'.formatter.formatDecimalScale'}" liveChange="onQuantityInputChanged">
+												<layoutData>
+													<l:GridData span="L3 M3 S4"/>
+												</layoutData>
+											</Input>
+											<Slider id="quantitySlider" width="93%" class="sliderBackground" enabled="{objectView>/quantityEnabled}"
+												max="{parts:['kanbanModel>KanbanQuantity', 'kanbanModel>ActualQuantity'], formatter:'.formatMaxQuantity'}" min="0" step="1"
+												value="{path:'kanbanModel>ActualQuantity', formatter:'.formatQuantity'}" liveChange="onQuantitySliderChanged"/>
+											<Label text=""/>
+											<Text text=""/>
+											<Label text=""/>
+											<HBox>
+												<HBox width="50%" justifyContent="Center">
+													<core:Icon src="sap-icon://sys-cancel-2" size="3rem" color="red" backgroundColor="white" press="onResetBtnPress"/>
+												</HBox>
+												<HBox width="50%" justifyContent="Center">
+													<core:Icon src="sap-icon://sys-enter-2" size="3rem" color="green" backgroundColor="white" press="onCompleteBtnPress"
+														busy="{objectView>/cpBtnEnabled}"/>
+												</HBox>
+											</HBox>
+										</f:content>
+									</f:SimpleForm>
+								</uxap:blocks>
+							</uxap:ObjectPageSubSection>
+						</uxap:subSections>
+					</uxap:ObjectPageSection>
+				</uxap:sections>
+			</uxap:ObjectPageLayout>
+			<!--<html:div class="rate-experience-wrap">-->
+			<!--	<html:a href="https://rateexperience.pg.com?id=pg.kanban" class="rate-experience" target="_blank">-->
+			<!--		<html:img src="./css/images/rate.svg" alt="Rate Your Experience"/>-->
+			<!--		<html:span>"Rate your experience"</html:span>-->
+			<!--	</html:a>-->
+			<!--</html:div>-->
+		</content>
+		<!--	<footer>
+			
+		</footer>-->
+	</Page>
+</mvc:View>

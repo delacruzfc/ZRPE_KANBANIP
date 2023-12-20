@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>KANBAN - Intermediate Production</title>
+
+<script>
+			window["sap-ushell-config"] = {
+				defaultRenderer : "fiori2",
+				renderers: {
+					fiori2: {
+						componentData: {
+							config: {
+								search: "hidden"
+							}
+						}
+					}
+				},
+				applications: {
+					"Kanban-display": {
+						additionalInformation: "SAPUI5.Component=pg.kanban",
+						applicationType: "URL",
+						url: ""
+					}
+				}
+			};
+		</script>
+
+		<!--<script src="test-resources/sap/ushell/bootstrap/sandbox.js" id="sap-ushell-bootstrap"></script>-->
+		<script src="resources/sap/ushell_abap/bootstrap/abap.js"></script>
+
+		<!-- Bootstrap the UI5 core library -->
+		<!--src="resources/sap-ui-core.js"-->
+		<script id="sap-ui-bootstrap"
+				
+				src="/resources/sap-ui-core.js"
+				data-sap-ui-libs="sap.m, sap.ushell, sap.collaboration"
+				data-sap-ui-theme="sap_bluecrystal"
+				data-sap-ui-compatVersion="edge"
+				data-sap-ui-resourceroots='{"pg.kanban": "./"}'
+				data-sap-ui-frameOptions='allow'
+				data-sap-ui-appCachebuster="./"
+				data-sap-ui-language="EN"> 	// NON-SECURE setting for testing environment 
+		</script>
+
+<script>
+	sap.ui.getCore().attachInit(
+			function() {
+				sap.ui.require([ "sap/m/Shell",
+						"sap/ui/core/ComponentContainer" ], function(Shell,
+						ComponentContainer) {
+					// initialize the UI component
+					new Shell({
+						appWidthLimited : false,
+						app : new ComponentContainer({
+							height : "100%",
+							name : "pg.kanban"
+						})
+					}).placeAt("content");
+				});
+			});
+</script>
+
+<!--<script type="text/javascript" src="plugin/jquery.pagewalkthrough.min.js"></script>-->
+
+</head>
+
+<!-- UI Content -->
+<body class="sapUiBody" id="content">
+	<div id="walkthrough-content" style="display:none">
+		<div id="walkthrough-1">
+			<h3>Welcome</h3>
+		</div>
+		<div id="walkthrough-2">You can filter here!</div>
+		<div id="walkthrough-3">Here is the control cycle list!</div>
+	</div>
+</body>
+</html>

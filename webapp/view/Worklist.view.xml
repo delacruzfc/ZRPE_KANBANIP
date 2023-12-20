@@ -1,0 +1,102 @@
+<mvc:View controllerName="pg.kanban.controller.Worklist" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" xmlns:smartTable="sap.ui.comp.smarttable"
+	xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:footerbar="sap.ushell.ui.footerbar" height="100%"
+	class="sapUiSizeCompact">
+	<Page id="page">
+		<customHeader>
+			<Bar>
+				<contentLeft>
+					<Button type="Back" press="onNavBack" width="5rem"/>
+					<Label text="{i18n>User}"/>
+					<Text id="userText"/>
+				</contentLeft>
+				<contentMiddle>
+					<Text text="{i18n>appTitle}"/>
+				</contentMiddle>
+				<contentRight>
+					<Label text="{i18n>Plant}"/>
+					<Text id="plantText"/>
+					<Text id="systemText"/>
+				</contentRight>
+			</Bar>
+		</customHeader>
+		<content>
+			<smartFilterBar:SmartFilterBar id="smartFilterBar" filterBarExpanded="true" entitySet="ControlCycle" persistencyKey="SmartFilter_Explored">
+				<smartFilterBar:controlConfiguration id="controlConfigurationSmartFilterBar">
+					<smartFilterBar:ControlConfiguration id="supplyAreaConfiguration" key="SupplyArea" preventInitialDataFetchInValueHelpDialog="false"
+						visibleInAdvancedArea="true" label="{i18n>SupplyArea}">
+						<smartFilterBar:customControl>
+							<MultiComboBox id="supplyAreaFilter" items="{ path: '/SupplyAreaSet', factory: '.supplyAreaFactory'}"
+								selectionFinish="onSupplyAreaSlecteionFinish"></MultiComboBox>
+						</smartFilterBar:customControl>
+					</smartFilterBar:ControlConfiguration>
+					<smartFilterBar:ControlConfiguration id="responsibleConfiguration" key="Responsible" preventInitialDataFetchInValueHelpDialog="false"
+						visibleInAdvancedArea="true" label="{i18n>Responsible}">
+						<smartFilterBar:customControl>
+							<MultiInput id="responsibleFilter" valueHelpRequest="onResponsileValueHelpRequested" tokenUpdate="onResonsibleChange"/>
+							<!--<MultiInput id="responsibleFilter" showValueHelp="true" valueHelpRequest="onResponsileValueHelpRequested"-->
+							<!--	tokens="{path:'responsible>/responsible'}">-->
+							<!--	<tokens>-->
+							<!--		<Token key="{responsible>Dispo}" text="{responsible>Dispo}"/>-->
+							<!--	</tokens>-->
+							<!--</MultiInput>-->
+						</smartFilterBar:customControl>
+					</smartFilterBar:ControlConfiguration>
+					<!-- <smartFilterBar:ControlConfiguration id="produceConfiguration" key="Produce" preventInitialDataFetchInValueHelpDialog="false"
+						visibleInAdvancedArea="true" label="{i18n>prodLine}">
+						<smartFilterBar:customControl>
+							<MultiInput id="produceFilter" valueHelpRequest="onProduceValueHelpRequested" tokenChange="onProduceChange"/>							
+						</smartFilterBar:customControl>
+					</smartFilterBar:ControlConfiguration> -->
+				</smartFilterBar:controlConfiguration>
+			</smartFilterBar:SmartFilterBar>
+			<smartTable:SmartTable id="controlCycleSmartTable" beforeRebindTable="onBeforeRebindTable" entitySet="ControlCycleSet"
+				smartFilterId="smartFilterBar" tableType="Table" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="false"
+				header="{i18n>ControlCycles}" showRowCount="true" initiallyVisibleFields="ControlCycleID,MaterialNo,Plant,SupplyArea,Responsible,StoringPos"
+				requestAtLeastFields="ControlCycleID,MaterialNo,Plant,SupplyArea,Responsible,StoringPos" persistencyKey="SmartTableAnalytical_Explored"
+				enableAutoBinding="true" demandPopin="true" class="sapUiResponsiveContentPadding" initialise="onSmartTableInitialised">
+				<!--dataReceived="onTableDataReceived"-->
+				<Table id="controlCycleTable" noDataText="{worklistView>/tableNoDataText}" busyIndicatorDelay="{worklistView>/tableBusyDelay}"
+					growing="true" growingThreshold="40">
+					<columns>
+						<!--busyIndicatorDelay="0"-->
+						<Column hAlign="Begin" width="25%" minScreenWidth="Tablet">
+							<customData>
+								<core:CustomData key="p13nData" value='\{"columnKey": "Material", "columnIndex":"2"}'/>
+							</customData>
+							<Text text="{i18n>Material}"/>
+						</Column>
+						<!--busyIndicatorDelay="0" -->
+						<Column hAlign="Begin" width="25%" minScreenWidth="Tablet">
+							<customData>
+								<core:CustomData key="p13nData" value='\{"columnKey": "KanbanOverview", "columnIndex":"3"}'/>
+							</customData>
+							<Text text="{i18n>KanbanOverview}"/>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem type="Navigation" press="onPress" vAlign="Middle">
+							<cells>
+								<!--<FlexBox height="1rem" width="100%">
+									<microchart:StackedBarMicroChart size="Responsive" precision="0" 
+										bars="{path:'CycleToStatus', factory:'.generateKanbanOverviewBar'}">
+									</microchart:StackedBarMicroChart>
+								</FlexBox>-->
+								<HBox>
+									<ObjectIdentifier title="{MaterialNo}"/>
+									<Text text="{StoringPos}" class="materialDescPadding"/>
+								</HBox>
+								<HBox items="{path:'CycleToStatus', factory:'.generateKanbanOverviewBar'}" wrap="Wrap"></HBox>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+			</smartTable:SmartTable>
+		</content>
+		<!--<footer>-->
+		<!--	<OverflowToolbar id="footer">-->
+		<!--		<Button type="Back" text="Back to Home" press="onNavBack"/>-->
+		<!--	</OverflowToolbar>-->
+		<!--</footer>-->
+	</Page>
+</mvc:View>

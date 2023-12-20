@@ -1,0 +1,158 @@
+{
+    "resources": [
+        {
+            "name": "Component.js"
+        },
+        {
+            "name": "controller/App.controller.js"
+        },
+        {
+            "name": "controller/BaseController.js"
+        },
+        {
+            "name": "controller/ErrorHandler.js"
+        },
+        {
+            "name": "controller/NotFound.controller.js"
+        },
+        {
+            "name": "controller/Object.controller.js"
+        },
+        {
+            "name": "controller/Worklist.controller.js"
+        },
+        {
+            "name": "controls/ExtScanner.js"
+        },
+        {
+            "name": "controls/fragments/inputDialog.fragment.xml"
+        },
+        {
+            "name": "controls/fragments/scanDialog.fragment.xml"
+        },
+        {
+            "name": "controls/fragments/settingsPopover.fragment.xml"
+        },
+        {
+            "name": "controls/fragments/toolbar.fragment.xml"
+        },
+        {
+            "name": "css/images/arrow-bottom.png"
+        },
+        {
+            "name": "css/images/arrow-left.png"
+        },
+        {
+            "name": "css/images/arrow-right.png"
+        },
+        {
+            "name": "css/images/arrow-top.png"
+        },
+        {
+            "name": "css/images/close.png"
+        },
+        {
+            "name": "css/images/rate.png"
+        },
+        {
+            "name": "css/images/rate.svg"
+        },
+        {
+            "name": "css/images/scratch-border.png"
+        },
+        {
+            "name": "css/images/slider.png"
+        },
+        {
+            "name": "css/style.css"
+        },
+        {
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
+        },
+        {
+            "name": "i18n/i18n_de.properties",
+            "raw": "i18n/i18n.properties",
+            "locale": "_de"
+        },
+        {
+            "name": "i18n/i18n_es.properties",
+            "raw": "i18n/i18n.properties",
+            "locale": "_es"
+        },
+        {
+            "name": "i18n/i18n_pl.properties",
+            "raw": "i18n/i18n.properties",
+            "locale": "_pl"
+        },
+        {
+            "name": "i18n/i18n_pt.properties",
+            "raw": "i18n/i18n.properties",
+            "locale": "_pt"
+        },
+        {
+            "name": "i18n/i18n_ru.properties",
+            "raw": "i18n/i18n.properties",
+            "locale": "_ru"
+        },
+        {
+            "name": "i18n/i18n_zh.properties",
+            "raw": "i18n/i18n.properties",
+            "locale": "_zh"
+        },
+        {
+            "name": "index.html"
+        },
+        {
+            "name": "libs/quagga.js"
+        },
+        {
+            "name": "libs/zxingjs.js"
+        },
+        {
+            "name": "localService/metadata.xml"
+        },
+        {
+            "name": "localService/mockserver.js"
+        },
+        {
+            "name": "model/formatter.js"
+        },
+        {
+            "name": "model/models.js"
+        },
+        {
+            "name": "utility/SegmentedButton.js"
+        },
+        {
+            "name": "utility/SegmentedButtonRenderer.js"
+        },
+        {
+            "name": "utility/utilities.js"
+        },
+        {
+            "name": "view/App.view.xml"
+        },
+        {
+            "name": "view/NotFound.view.xml"
+        },
+        {
+            "name": "view/Object.view.xml"
+        },
+        {
+            "name": "view/ObjectNotFound.view.xml"
+        },
+        {
+            "name": "view/ProdLine.fragment.xml"
+        },
+        {
+            "name": "view/ProdVersion.fragment.xml"
+        },
+        {
+            "name": "view/ScanDialog.fragment.xml"
+        },
+        {
+            "name": "view/Worklist.view.xml"
+        }
+    ]
+}
